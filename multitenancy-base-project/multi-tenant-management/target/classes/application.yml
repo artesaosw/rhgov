@@ -1,0 +1,30 @@
+service:
+  name: folha
+server:
+  port: 8088
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+multitenancy:
+  master:
+    datasource:
+      url: jdbc:postgresql://localhost:5432/rh_gov
+      username: rhgov
+      password: Mphps252820!
+    liquibase:
+      changeLog: classpath:db/changelog/db.changelog-master.yaml
+  tenant:
+    datasource:
+      url-prefix: jdbc:postgresql://localhost:5432/
+    liquibase:
+      changeLog: classpath:db/changelog/db.changelog-tenant.yaml
+    database_name:
+      prefix: rh_gov_
+encryption:
+  secret: verySecret
+  salt: jozo
